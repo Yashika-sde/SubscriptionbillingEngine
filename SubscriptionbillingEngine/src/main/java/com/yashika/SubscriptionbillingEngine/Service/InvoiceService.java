@@ -25,7 +25,7 @@ public class InvoiceService
     {
         LocalDate start = sub.getNextBillingDate();
 
-        if(invoiceRepo.exitSubscriptionperiodStart(sub,start))
+        if(invoiceRepo.existsBySubscriptionAndPeriodStart(sub,start))
         {
             throw new RuntimeException("Invoice already exists!");
         }
@@ -34,9 +34,9 @@ public class InvoiceService
         BigDecimal tax = amount.multiply(GST).setScale(2, RoundingMode.HALF_UP);
 
         Invoice inv = new Invoice();
-        inv.setSubscribe(sub);
-        inv.setPeriodStartDate(start);
-        inv.setPeriodEndDate(start.plusMonths(1));
+        inv.setSubscription(sub);
+        inv.setPeriodStart(start);
+        inv.setPeriodEnd(start.plusMonths(1));
         inv.setAmount(amount);
         inv.setTax(tax);
         inv.setTotal(amount.add(tax));

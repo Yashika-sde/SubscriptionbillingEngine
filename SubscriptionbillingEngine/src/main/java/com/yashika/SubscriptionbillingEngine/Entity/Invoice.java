@@ -22,10 +22,10 @@ public class Invoice
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "subscription_id")
-    private Subscription subscribe;
+    private Subscription subscription;
 
-    private LocalDate periodStartDate;
-    private LocalDate periodEndDate;
+    private LocalDate periodStart;
+    private LocalDate periodEnd;
 
     private BigDecimal amount;
     private BigDecimal tax;
