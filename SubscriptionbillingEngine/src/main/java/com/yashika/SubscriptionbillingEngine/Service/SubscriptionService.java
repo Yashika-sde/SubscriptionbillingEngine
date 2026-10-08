@@ -54,4 +54,10 @@ public class SubscriptionService
         };
     }
 
+    public void advanceBillingDate(Subscription sub)
+    {
+        sub.setNextBillingDate(nextDate(sub.getNextBillingDate(),sub.getPlan().getBillingCycle()));
+        subscriptionRepo.save(sub);
+    }
+
 }
