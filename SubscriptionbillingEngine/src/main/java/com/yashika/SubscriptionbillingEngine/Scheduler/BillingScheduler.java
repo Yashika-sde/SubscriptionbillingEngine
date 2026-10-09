@@ -25,7 +25,7 @@ public class BillingScheduler
         this.subscriptionService = subscriptionService;
     }
 
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(cron = "0 0 1 * * *")
     public void runBilling()
     {
         List<Subscription> due = subscriptionRepo
