@@ -1,9 +1,11 @@
 package com.yashika.SubscriptionbillingEngine.Scheduler;
 
 import com.yashika.SubscriptionbillingEngine.Entity.Enum.Status;
+import com.yashika.SubscriptionbillingEngine.Entity.Invoice;
 import com.yashika.SubscriptionbillingEngine.Entity.Subscription;
 import com.yashika.SubscriptionbillingEngine.Repository.SubscriptionRepo;
 import com.yashika.SubscriptionbillingEngine.Service.InvoiceService;
+import com.yashika.SubscriptionbillingEngine.Service.PaymentService;
 import com.yashika.SubscriptionbillingEngine.Service.SubscriptionService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -17,12 +19,14 @@ public class BillingScheduler
     private final SubscriptionRepo subscriptionRepo;
     private final InvoiceService invoiceService;
     private final SubscriptionService subscriptionService;
+    private final PaymentService paymentService;
 
-    public BillingScheduler(SubscriptionService subscriptionService,SubscriptionRepo subscriptionRepo,InvoiceService invoiceService)
+    public BillingScheduler(SubscriptionService subscriptionService,SubscriptionRepo subscriptionRepo,InvoiceService invoiceService,PaymentService paymentService)
     {
         this.subscriptionRepo = subscriptionRepo;
         this.invoiceService = invoiceService;
         this.subscriptionService = subscriptionService;
+        this.paymentService = paymentService;
     }
 
     @Scheduled(cron = "0 0 1 * * *")
@@ -35,7 +39,8 @@ public class BillingScheduler
         {
             try
             {
-                invoiceService.generate(sub);
+                Invoice inv = invoiceService.generate(sub);
+                paymentService.charge(inv);
                 subscriptionService.advanceBillingDate(sub);
             }
             catch (Exception e)
