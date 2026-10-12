@@ -34,4 +34,9 @@ public class SubscriptionController
         return subRepo.findAll();
     }
 
+    @PutMapping("/{id}/cancel")
+    public Subscription cancel(@PathVariable Long id) {
+        return subService.cancel(id);
+    }
+
 }

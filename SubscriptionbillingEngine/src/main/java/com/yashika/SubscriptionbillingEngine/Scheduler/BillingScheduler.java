@@ -29,7 +29,7 @@ public class BillingScheduler
         this.paymentService = paymentService;
     }
 
-    @Scheduled(cron = "0 0 1 * * *")
+    @Scheduled(cron = "0 0 2 * * *")
     public void runBilling()
     {
         List<Subscription> due = subscriptionRepo

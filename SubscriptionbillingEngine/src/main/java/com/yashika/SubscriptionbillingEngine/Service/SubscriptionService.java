@@ -60,4 +60,16 @@ public class SubscriptionService
         subscriptionRepo.save(sub);
     }
 
+    public Subscription cancel(Long id) {
+        Subscription sub = subscriptionRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Subscription not found"));
+
+        if (sub.getStatus() == Status.CANCELLED) {
+            throw new RuntimeException("Subscription is already cancelled");
+        }
+
+        sub.setStatus(Status.CANCELLED);
+        return subscriptionRepo.save(sub);
+    }
+
 }
