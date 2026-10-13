@@ -46,4 +46,21 @@ public class InvoiceService
         return invoiceRepo.save(inv);
     }
 
+    public Invoice generateProrated(Subscription sub,BigDecimal amount,LocalDate start,LocalDate end)
+    {
+        BigDecimal tax = amount.multiply(GST).setScale(2,RoundingMode.HALF_UP);
+
+        Invoice inv = new Invoice();
+        inv.setSubscription(sub);
+        inv.setAmount(amount);
+        inv.setTax(tax);
+        inv.setTotal(amount.add(tax));
+        inv.setPeriodStart(start);
+        inv.setPeriodEnd(end);
+        inv.setStatus(InvoiceStatus.PENDING);
+        inv.setIssuedOn(LocalDate.now());
+        inv.setDueOn(LocalDate.now().plusDays(7));
+        return invoiceRepo.save(inv);
+    }
+
 }
