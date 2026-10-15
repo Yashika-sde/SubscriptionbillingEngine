@@ -39,4 +39,8 @@ public class SubscriptionController
         return subService.cancel(id);
     }
 
+    @PutMapping("/{id}/upgrade")
+    public Subscription upgrade(@PathVariable Long id, @RequestParam Long newPlanId) {
+        return subService.upgrade(id, newPlanId);
+    }
 }

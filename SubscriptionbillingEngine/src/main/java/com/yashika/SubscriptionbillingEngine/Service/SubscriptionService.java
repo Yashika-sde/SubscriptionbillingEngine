@@ -6,6 +6,8 @@ import com.yashika.SubscriptionbillingEngine.Entity.Enum.Status;
 import com.yashika.SubscriptionbillingEngine.Entity.Invoice;
 import com.yashika.SubscriptionbillingEngine.Entity.Plan;
 import com.yashika.SubscriptionbillingEngine.Entity.Subscription;
+import com.yashika.SubscriptionbillingEngine.Exception.BadRequestException;
+import com.yashika.SubscriptionbillingEngine.Exception.ResourceNotFoundException;
 import com.yashika.SubscriptionbillingEngine.Repository.CustomerRepo;
 import com.yashika.SubscriptionbillingEngine.Repository.PlanRepo;
 import com.yashika.SubscriptionbillingEngine.Repository.SubscriptionRepo;
@@ -82,15 +84,15 @@ public class SubscriptionService
 
     public Subscription upgrade(Long id, Long newPlanId) {
         Subscription sub = subscriptionRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Subscription not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Subscription not found"));
         Plan newPlan = planRepo.findById(newPlanId)
-                .orElseThrow(() -> new RuntimeException("Plan not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Plan not found"));
         Plan oldPlan = sub.getPlan();
 
         if (sub.getStatus() != Status.ACTIVE)
-            throw new RuntimeException("Only active subscriptions can be upgraded");
+            throw new BadRequestException("Only active subscriptions can be upgraded");
         if (newPlan.getPrice().compareTo(oldPlan.getPrice()) <= 0)
-            throw new RuntimeException("New plan must cost more than the current plan");
+            throw new BadRequestException("New plan must cost more than the current plan");
 
         LocalDate today = LocalDate.now();
         LocalDate periodEnd = sub.getNextBillingDate();
