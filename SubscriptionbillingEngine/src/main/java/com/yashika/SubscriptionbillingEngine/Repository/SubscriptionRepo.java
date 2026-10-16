@@ -10,4 +10,5 @@ import java.util.List;
 public interface SubscriptionRepo extends JpaRepository<Subscription,Long>
 {
     List<Subscription> findByStatusAndNextBillingDateLessThanEqual(Status status, LocalDate date);
+    List<Subscription> findByStatus(Status status);
 }

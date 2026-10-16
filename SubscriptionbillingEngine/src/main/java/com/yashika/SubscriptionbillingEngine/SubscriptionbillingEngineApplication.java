@@ -12,7 +12,6 @@ public class SubscriptionbillingEngineApplication
 
 	public static void main(String[] args)
 	{
-
 		SpringApplication.run(SubscriptionbillingEngineApplication.class, args);
 	}
 
