@@ -32,7 +32,7 @@ public class InvoiceController
         return  invoiceService.generate(sub);
     }
 
-    @GetMapping
+    @GetMapping("/get")
     public List<Invoice> findBySubscriptionId(@RequestParam Long subscriptionId)
     {
         return invoiceRepo.findSubscriptionById(subscriptionId);
