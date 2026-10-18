@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login | Billing Engine</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="login-page">
+<form class="login-card" method="post" action="/login">
+    <h1>Billing Engine</h1>
+    <p class="muted">Sign in to continue</p>
+    <p id="msg" class="alert" hidden></p>
+
+    <label for="username">Username</label>
+    <input id="username" name="username" type="text" autocomplete="username" required>
+
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" autocomplete="current-password" required>
+
+    <button type="submit">Sign in</button>
+</form>
+<script src="/js/login.js"></script>
+</body>
+</html>
