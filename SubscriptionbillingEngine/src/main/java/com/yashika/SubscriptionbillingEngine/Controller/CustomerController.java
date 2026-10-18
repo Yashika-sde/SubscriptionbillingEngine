@@ -25,7 +25,7 @@ public class CustomerController
         return customerRepo.save(customer);
     }
 
-    @RequestMapping("/get")
+    @RequestMapping("/getAll")
     public List<Customer> getAll()
     {
         return customerRepo.findAll();

@@ -25,7 +25,7 @@ public class PlanController
         return planRepo.save(plan);
     }
 
-    @RequestMapping("/get")
+    @RequestMapping("/getAll")
     public List<Plan> getAll()
     {
         return planRepo.findAll();
