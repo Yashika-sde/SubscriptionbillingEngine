@@ -44,3 +44,7 @@ select { width: 100%; padding: .65rem; border: 1px solid #d1d5db; border-radius:
 .btn-sm { width: auto; margin: 0; padding: .35rem .8rem; font-size: .85rem; }
 .btn-danger { background: #dc2626; }
 .btn-danger:hover { background: #b91c1c; }
+.container.wide { max-width: 1200px; }
+.table-wrap { overflow-x: auto; }
+.filter { margin-bottom: 1rem; }
+.filter > div { max-width: 220px; }

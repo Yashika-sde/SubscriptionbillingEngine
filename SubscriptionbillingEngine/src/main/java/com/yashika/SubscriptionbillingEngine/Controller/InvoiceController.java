@@ -5,6 +5,7 @@ import com.yashika.SubscriptionbillingEngine.Entity.Subscription;
 import com.yashika.SubscriptionbillingEngine.Repository.InvoiceRepo;
 import com.yashika.SubscriptionbillingEngine.Repository.SubscriptionRepo;
 import com.yashika.SubscriptionbillingEngine.Service.InvoiceService;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,5 +37,10 @@ public class InvoiceController
     public List<Invoice> findBySubscriptionId(@RequestParam Long subscriptionId)
     {
         return invoiceRepo.findSubscriptionById(subscriptionId);
+    }
+
+    @GetMapping("/getAll")
+    public List<Invoice> getAll() {
+        return invoiceRepo.findAll(Sort.by(Sort.Direction.DESC, "id"));
     }
 }
