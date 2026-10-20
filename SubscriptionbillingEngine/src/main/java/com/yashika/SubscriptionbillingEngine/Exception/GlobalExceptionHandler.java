@@ -1,4 +1,6 @@
 package com.yashika.SubscriptionbillingEngine.Exception;
+import org.springframework.dao.DataIntegrityViolationException;
+
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,13 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<Map<String, Object>> handleBadRequest(BadRequestException ex) {
         return build(HttpStatus.BAD_REQUEST, ex.getMessage());
+    }
+
+
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<Map<String, Object>> handleConflict(DataIntegrityViolationException ex) {
+        return build(HttpStatus.CONFLICT, "A record with the same unique value already exists");
     }
 
     private ResponseEntity<Map<String, Object>> build(HttpStatus status, String message) {
